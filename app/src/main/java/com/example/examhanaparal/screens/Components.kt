@@ -283,3 +283,35 @@ fun ShimmerGroupCard() {
         }
     }
 }
+
+
+// ── Letter avatar
+@Composable
+fun LetterAvatar(
+    name      : String,
+    size      : Int  = 40,
+    fontSize  : Int  = 16,
+    background: Color = AccentBluePale,
+    textColor : Color = AccentBlue
+) {
+    val initials = name.trim()
+        .split(" ")
+        .take(2)
+        .joinToString("") { it.take(1).uppercase() }
+        .ifEmpty { "?" }
+
+    Box(
+        modifier          = Modifier
+            .size(size.dp)
+            .clip(CircleShape)
+            .background(background),
+        contentAlignment  = Alignment.Center
+    ) {
+        Text(
+            text       = initials,
+            fontSize   = fontSize.sp,
+            fontWeight = FontWeight.Bold,
+            color      = textColor
+        )
+    }
+}
