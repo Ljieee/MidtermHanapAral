@@ -315,3 +315,39 @@ fun LetterAvatar(
         )
     }
 }
+
+// ── Role badge chip
+@Composable
+fun RoleBadge(role: String) {
+    val (bg, fg, label) = when (role) {
+        "admin"  -> Triple(AdminGoldDim, AdminGold,  "Admin")
+        else     -> Triple(AccentBluePale, AccentBlue, "Student")
+    }
+    Box(
+        modifier = Modifier
+            .clip(RoundedCornerShape(20.dp))
+            .background(bg)
+            .padding(horizontal = 10.dp, vertical = 4.dp)
+    ) {
+        Text(
+            text       = label,
+            fontSize   = 11.sp,
+            fontWeight = FontWeight.Bold,
+            color      = fg,
+            letterSpacing = 0.5.sp
+        )
+    }
+}
+
+// ── Section header
+@Composable
+fun SectionHeader(title: String, modifier: Modifier = Modifier) {
+    Text(
+        text       = title,
+        fontSize   = 13.sp,
+        fontWeight = FontWeight.Bold,
+        color      = TextHint,
+        letterSpacing = 1.sp,
+        modifier   = modifier
+    )
+}
