@@ -222,3 +222,64 @@ fun GroupCard(
         }
     }
 }
+
+// ── Shimmer loading card (skeleton)
+@Composable
+fun ShimmerGroupCard() {
+    val transition = rememberInfiniteTransition(label = "shimmer")
+    val shimmerX by transition.animateFloat(
+        initialValue = -600f,
+        targetValue  = 1200f,
+        animationSpec = infiniteRepeatable(
+            animation  = tween(1400, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
+        ),
+        label = "shimmerX"
+    )
+
+    val shimmerBrush = Brush.linearGradient(
+        colors = listOf(ShimmerBase, ShimmerHighlight, ShimmerBase),
+        start  = Offset(shimmerX, 0f),
+        end    = Offset(shimmerX + 600f, 300f)
+    )
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(80.dp),
+        shape  = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = DarkCard)
+    ) {
+        Row(
+            modifier          = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(48.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(shimmerBrush)
+            )
+            Spacer(Modifier.width(14.dp))
+            Column(modifier = Modifier.weight(1f)) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(0.55f)
+                        .height(14.dp)
+                        .clip(RoundedCornerShape(7.dp))
+                        .background(shimmerBrush)
+                )
+                Spacer(Modifier.height(8.dp))
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(0.35f)
+                        .height(11.dp)
+                        .clip(RoundedCornerShape(6.dp))
+                        .background(shimmerBrush)
+                )
+            }
+        }
+    }
+}
