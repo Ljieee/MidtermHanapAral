@@ -111,3 +111,114 @@ fun LoadingDialog(message: String = "Please wait...") {
         }
     }
 }
+
+// ── Study group card item
+@Composable
+fun GroupCard(
+    group      : StudyGroup,
+    currentUid : String,
+    isDisabled : Boolean = false,
+    onClick    : () -> Unit
+) {
+    val isMember = group.members.contains(currentUid)
+    val isAdmin  = group.adminUid == currentUid
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(enabled = !isDisabled) { onClick() }
+            .alpha(if (isDisabled) 0.6f else 1f),
+        shape  = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = DarkCard),
+        border = if (isAdmin) CardDefaults.outlinedCardBorder().copy(
+            brush = Brush.linearGradient(listOf(AdminGoldDim, AdminGold.copy(alpha = 0.4f)))
+        ) else null
+    ) {
+        Row(
+            modifier          = Modifier.padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(48.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(if (isAdmin) AdminGoldDim else AccentBluePale),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    Icons.Default.Group,
+                    contentDescription = null,
+                    tint     = if (isAdmin) AdminGold else AccentBlue,
+                    modifier = Modifier.size(24.dp)
+                )
+            }
+
+            Spacer(Modifier.width(14.dp))
+
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text       = group.name,
+                    fontSize   = 15.sp,
+                    fontWeight = FontWeight.Bold,
+                    color      = TextPrimary
+                )
+                Text(
+                    text     = group.subject,
+                    fontSize = 12.sp,
+                    color    = TextSecondary
+                )
+
+                Spacer(Modifier.height(8.dp))
+
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    // Member count badge
+                    Box(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(6.dp))
+                            .background(AccentBluePale)
+                            .padding(horizontal = 8.dp, vertical = 2.dp)
+                    ) {
+                        Text(
+                            "${group.memberCount}/${group.maxMembers}",
+                            fontSize   = 10.sp,
+                            color      = AccentBlue,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+
+                    if (isMember) {
+                        Box(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(6.dp))
+                                .background(AccentGreenDim)
+                                .padding(horizontal = 8.dp, vertical = 2.dp)
+                        ) {
+                            Text(
+                                "Joined",
+                                fontSize   = 10.sp,
+                                color      = AccentGreen,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    }
+                }
+            }
+
+            if (isDisabled) {
+                Icon(
+                    Icons.Default.Lock,
+                    contentDescription = "Disabled",
+                    tint     = TextHint,
+                    modifier = Modifier.size(18.dp)
+                )
+            } else {
+                Icon(
+                    Icons.Default.ChevronRight,
+                    contentDescription = null,
+                    tint     = TextHint,
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+        }
+    }
+}
