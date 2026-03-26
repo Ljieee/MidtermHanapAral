@@ -351,3 +351,34 @@ fun SectionHeader(title: String, modifier: Modifier = Modifier) {
         modifier   = modifier
     )
 }
+
+// ── Confirmation dialog
+@Composable
+fun ConfirmDialog(
+    title       : String,
+    message     : String,
+    confirmLabel: String = "Confirm",
+    confirmColor: Color  = DangerRed,
+    onConfirm   : () -> Unit,
+    onDismiss   : () -> Unit
+) {
+    AlertDialog(
+        onDismissRequest  = onDismiss,
+        containerColor    = DarkCard,
+        titleContentColor = TextPrimary,
+        textContentColor  = TextSecondary,
+        title = { Text(title, fontWeight = FontWeight.Bold) },
+        text  = { Text(message, fontSize = 14.sp) },
+        confirmButton = {
+            TextButton(onClick = onConfirm) {
+                Text(confirmLabel, color = confirmColor, fontWeight = FontWeight.SemiBold)
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Cancel", color = TextSecondary)
+            }
+        },
+        shape = RoundedCornerShape(20.dp)
+    )
+}
