@@ -31,3 +31,83 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.mij.hanaparal.models.StudyGroup
 import com.mij.hanaparal.ui.theme.*
+
+// ── Reusable styled text field
+@Composable
+fun HanapAralTextField(
+    label        : String,
+    value        : String,
+    onValueChange: (String) -> Unit,
+    modifier     : Modifier = Modifier,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    keyboardOptions: KeyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words)
+) {
+    OutlinedTextField(
+        value              = value,
+        onValueChange      = onValueChange,
+        label              = { Text(label, fontSize = 13.sp) },
+        singleLine         = true,
+        modifier           = modifier.fillMaxWidth(),
+        keyboardOptions    = keyboardOptions,
+        visualTransformation = visualTransformation,
+        colors             = OutlinedTextFieldDefaults.colors(
+            focusedBorderColor      = AccentBlue,
+            unfocusedBorderColor    = DividerColor,
+            focusedTextColor        = TextPrimary,
+            unfocusedTextColor      = TextPrimary,
+            cursorColor             = AccentBlue,
+            focusedLabelColor       = AccentBlue,
+            unfocusedLabelColor     = TextHint,
+            unfocusedContainerColor = DarkCard,
+            focusedContainerColor   = DarkCardAlt
+        ),
+        shape = RoundedCornerShape(14.dp)
+    )
+}
+
+// ── Full-screen loading dialog
+@Composable
+fun LoadingDialog(message: String = "Please wait...") {
+    Dialog(
+        onDismissRequest = {},
+        properties = DialogProperties(
+            dismissOnBackPress    = false,
+            dismissOnClickOutside = false
+        )
+    ) {
+        Card(
+            shape  = RoundedCornerShape(24.dp),
+            colors = CardDefaults.cardColors(containerColor = DarkCard),
+            border = CardDefaults.outlinedCardBorder().copy(
+                brush = Brush.linearGradient(
+                    colors = listOf(DividerColor, AccentBluePale, DividerColor)
+                )
+            )
+        ) {
+            Column(
+                modifier            = Modifier.padding(36.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                // Spinning ring
+                CircularProgressIndicator(
+                    color       = AccentBlue,
+                    strokeWidth = 3.dp,
+                    modifier    = Modifier.size(52.dp)
+                )
+                Spacer(Modifier.height(20.dp))
+                Text(
+                    text       = message,
+                    color      = TextPrimary,
+                    fontSize   = 15.sp,
+                    fontWeight = FontWeight.Medium
+                )
+                Spacer(Modifier.height(4.dp))
+                Text(
+                    text     = "This won't take long",
+                    color    = TextHint,
+                    fontSize = 12.sp
+                )
+            }
+        }
+    }
+}
