@@ -26,7 +26,7 @@ import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
-import com.mij.hanaparal.ui.theme.*
+import com.example.examhanaparal.ui.theme.*
 import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)

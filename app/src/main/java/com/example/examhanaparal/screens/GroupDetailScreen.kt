@@ -26,9 +26,9 @@ import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.mij.hanaparal.models.StudyGroup
-import com.mij.hanaparal.models.UserProfile
-import com.mij.hanaparal.ui.theme.*
+import com.example.examhanaparal.models.StudyGroup
+import com.example.examhanaparal.models.UserProfile
+import com.example.examhanaparal.ui.theme.*
 import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
