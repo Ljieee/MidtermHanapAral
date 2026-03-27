@@ -1,4 +1,4 @@
-package com.example.examhanaparal.model
+package com.example.examhanaparal.models
 
 data class UserProfile(
     val uid     : String = "",
