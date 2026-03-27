@@ -34,6 +34,7 @@ val DangerRed      = Color(0xFFFF5252)
 val DangerRedDim   = Color(0xFF4D1F1F)
 
 val AccentGreen    = Color(0xFF4CAF50)
+val AccentGreenDim = Color(0xFF1B381C)
 val DeepNavy       = Color(0xFF0A0C14)
 
 val ShimmerBase      = Color(0xFF1C2030)
